@@ -1,0 +1,11 @@
+package ch11;
+
+public class PersonTest {
+    static void main(String[] args) {
+        Person p = new Person();
+        p.name = "하루";
+        p.age = 6;
+
+        p.introduce();
+    }
+}
