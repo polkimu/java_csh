@@ -12,12 +12,12 @@ public class BusTest {
 
         Passenger[] p = new Passenger[100]; // 승객들을 배열로 저장
         int ridePassengerIndex = 0; // 몇번째 탑승객인지 저장, 첫번째 승객 : 0번
+        Scanner s = new Scanner(System.in);
 
         while (true) {
             System.out.println("현재 버스의 속도는 " + bus1.speed + "입니다. 다음 행동을 선택해 주십시오" );
             System.out.println("1.가속 2.정차 3.버스 정보 확인");
-            Scanner s1 = new Scanner(System.in);
-            int toDo = s1.nextInt();
+            int toDo = s.nextInt();
             switch (toDo){
                 case 1 -> bus1.speedUp(); // 가속
                 case 2 -> { // 정지 -> 승차 -> 하차
@@ -30,7 +30,6 @@ public class BusTest {
                         boolean isCard = cashOrCard();//
                         p[ridePassengerIndex] = new Passenger(type, isCard);
                         bus1.ride(p[ridePassengerIndex]);
-                        System.out.println((ridePassengerIndex+1) + "번째 승객입니다.");
                         ridePassengerIndex++;
                     }
 
@@ -53,25 +52,25 @@ public class BusTest {
 
     static int howManyRide(){
         System.out.println("탑승할 승객이 몇명 있나요? 입력 예시 : 3");
-        Scanner s1 = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
         int numPassenger;
-        numPassenger = s1.nextInt();
+        numPassenger = s.nextInt();
         return numPassenger;
     }
 
     static int howManyLeave(){
         System.out.println("하차할 승객이 몇명 있나요? 입력 예시 : 3");
-        Scanner s1 = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
         int numPassenger;
-        numPassenger = s1.nextInt();
+        numPassenger = s.nextInt();
         return numPassenger;
     }
 
     static int whichIndexLeave(){
         System.out.println("몇번째 승객이 내립니까?");
-        Scanner s1 = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
         int passengerIndex;
-        passengerIndex = s1.nextInt();
+        passengerIndex = s.nextInt();
         return passengerIndex;
     }
 
@@ -80,8 +79,8 @@ public class BusTest {
         boolean isCard = false; // 카드인가?
         System.out.println("승객을 태웁니다");
         System.out.println("1.영유아 2.어린이 3.청소년 4.성인 5.노인");
-        Scanner s1 = new Scanner(System.in);
-        int type = s1.nextInt();
+        Scanner s = new Scanner(System.in);
+        int type = s.nextInt();
         switch (type) {
             case 1 -> fareType = "영유아";
             case 2 -> fareType = "어린이";
@@ -92,11 +91,11 @@ public class BusTest {
         System.out.println(fareType);
         return fareType;
     }
-    static boolean cashOrCard(){ // 지불 방식 (현금 혹은 카드)
 
+    static boolean cashOrCard(){ // 지불 방식 (현금 혹은 카드)
         System.out.println("1.현금 2.카드");
-        Scanner s2 = new Scanner(System.in);
-        int card = s2.nextInt();
+        Scanner s = new Scanner(System.in);
+        int card = s.nextInt();
         if (card == 1) {
             System.out.println("현금입니다.");
             return false;
