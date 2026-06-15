@@ -1,8 +1,9 @@
-package homework;
+package h03;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class BusTest {
+public class BusTestList {
     public static void main(String[] args) {
         //Car 인스턴스를 생성한다
         //인스턴스를 생성할 때 사용한 클래스가 생성한 인스턴스의 타입이 된다
@@ -10,7 +11,8 @@ public class BusTest {
                 new String[]{"우리 집", "김포고등학교", "김포 시청"},
                 1300, 15);
 
-        Passenger[] p = new Passenger[100]; // 승객들을 배열로 저장
+        ArrayList<Passenger> plist = new ArrayList<>(); // 승객들을 리스트로 저장
+        ArrayList<Bus> blist = new ArrayList<>();
         int ridePassengerIndex = 0; // 몇번째 탑승객인지 저장, 첫번째 승객 : 0번
         Scanner s = new Scanner(System.in);
 

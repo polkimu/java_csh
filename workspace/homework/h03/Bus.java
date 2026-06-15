@@ -1,4 +1,4 @@
-package homework;
+package h03;
 
 import java.util.Objects;
 

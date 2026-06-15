@@ -1,4 +1,4 @@
-package homework;
+package h03;
 
 public class Passenger {
     private String fareType; // 영유아, 어린이, 청소년, 성인, 노인

@@ -1,4 +1,4 @@
-package homework;
+package h03;
 
 public class Car {
     //필드
