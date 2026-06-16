@@ -142,7 +142,7 @@ INSERT INTO post (member_id, title, content)
 -- 4. 게시글 수정 (2번 게시글의 제목과 내용 변경) UPDATE T SET
 UPDATE post
 	SET title = '수정된 제목입니다.',
-		content = '수정된 내용입니다.'
+		content = '수정된 내용입니다.'  
 	WHERE id = 2;
 
 -- 5. 게시글 삭제 (3번에서 등록한 게시글 삭제) DELETE FROM T
