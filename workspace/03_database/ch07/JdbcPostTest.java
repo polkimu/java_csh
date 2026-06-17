@@ -37,8 +37,8 @@ public class JdbcPostTest {
 
             // 4. 결과 수신(ResultSet 객체)
             int affectedRows = stmt.executeUpdate("INSERT INTO post (member_id, title, content) VALUES \n" +
-                    "    ('"+memberId+"', '"+title+"', '"+content+"')");
-            System.out.println("회원 등록 완료, " + affectedRows + "건 반영됨");
+                    "    ("+memberId+", '"+title+"', '"+content+"')");
+            System.out.println("게시글 등록 완료, " + affectedRows + "건 반영됨");
         }catch(Exception e){ // 플랜 B
             System.out.println("에러 발생" + e.getMessage());
         }
