@@ -69,5 +69,12 @@ SELECT id, title, created_at
     ORDER BY created_at DESC
     LIMIT 2, 2;
 
+-- 로그인 체크
+select * from member where email = 'haru@gmail.com' and password ='123';
+select * from member where email = 'haru@gmail.com' and password ='pwd123';
+
+-- SQL injection 기법
+select * from member where email = 'haru@gmail.com' or '1'='1' and password ='123';
+
 
 

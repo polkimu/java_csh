@@ -2,7 +2,7 @@ package ch07;
 
 import java.sql.*;
 
-public class JdbcBasicTest {
+public class JdbcMemberTest {
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/board_db?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
     private static final String DB_USER = "user1";
@@ -15,8 +15,53 @@ public class JdbcBasicTest {
         updateMember(3, "3333", "3번 회원", "01033333333");
         deleteMember(1);
         selectAllMembers();
+
+        login("haru@gmail.com", "123");
+        login("haru@gmail.com", "pwd123");
+        login("haru@gmail.com' or '1'='1", "111" );
     }
 
+    // 로그인
+    public static void login(String email, String password){
+        String sql = "select * from member where email = '" + email + "' and password = '" + password + "'";
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try{ // 플랜 A
+            // 1. 데이터베이스 연결(Connection 객체 생성)
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+            // 2. SQL 실행하는 객체 생성(Statement 객체 생성)
+            stmt = conn.createStatement();
+
+            // 3. SQL 실행
+
+            // 4. 결과 수신(ResultSet 객체)
+            rs = stmt.executeQuery(sql);
+
+            if(rs.next()){ // 커서를 하나씩 내림
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String phone = rs.getString("phone");
+
+                System.out.println("로그인에 성공했습니다.");
+                System.out.println("ID : " + id + ", 이메일 : " + email + ", 이름 : " + name + ", 전화번호 : " + phone);
+            } else{
+                System.out.println("아이디와 패스워드를 확인하세요");
+            }
+
+
+        }catch(Exception e){ // 플랜 B
+            System.out.println("에러 발생" + e.getMessage());
+        }
+        finally {
+            // 5. 생성된 리소스를 생성의 역순으로 해제
+            try{if(rs!=null) rs.close();} catch (Exception e) {}
+            try{if(stmt!=null) stmt.close();} catch (Exception e) {}
+            try{if(conn!=null) conn.close();} catch (Exception e) {}
+        }
+    }
     // 회원 목록 조회
     public static void selectAllMembers(){
         Connection conn = null;
@@ -31,6 +76,7 @@ public class JdbcBasicTest {
             stmt = conn.createStatement();
 
             // 3. SQL 실행
+
 
             // 4. 결과 수신(ResultSet 객체)
             rs = stmt.executeQuery("SELECT * FROM member");
@@ -125,14 +171,24 @@ public class JdbcBasicTest {
             // 2. SQL 실행하는 객체 생성(Statement 객체 생성)
             stmt = conn.createStatement();
 
+            // 트랙잭션 제어를 위해 자동 커밋 중지
+            conn.setAutoCommit(false);
             // 3. SQL 실행 (insert)
+            int affectedRows = stmt.executeUpdate("DELETE FROM post WHERE member_id =" + id);
+            System.out.println("회원의 모든 게시글 삭제 완료 : " + affectedRows +"건 반영됨");
 
-            // 4. 결과 수신(ResultSet 객체)
-            int affectedRows = stmt.executeUpdate("DELETE FROM member WHERE id =" + id);
-            System.out.println("회원 삭제 완료 : " + affectedRows + "건 반영 됨");
+            // 10초 동안 휴식
+            Thread.sleep(1000*10);
 
+            affectedRows = stmt.executeUpdate("DELETE FROM member WHERE id =" + id);
+            System.out.println("회원 삭제 완료 : " + affectedRows + "건 반영됨");
+
+            // 성공 : commit
+            conn.commit();
         }catch(Exception e){ // 플랜 B
             System.out.println("에러 발생" + e.getMessage());
+            try{if(conn!=null) conn.rollback();} catch (Exception e2) {} // 실패 : rollback
+            e.printStackTrace();
         }
         finally {
             // 5. 생성된 리소스를 생성의 역순으로 해제
