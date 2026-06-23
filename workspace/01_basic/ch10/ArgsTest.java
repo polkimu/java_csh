@@ -12,6 +12,5 @@ public class ArgsTest {
         String name = args[0];
         int age = Integer.parseInt(args[1]);
         System.out.println("이름 : " + name + " 나이 : " + age + ", 내년에는 " + (age + 1) + "살이 된다");
-
     }
 }
