@@ -7,15 +7,19 @@ public class Prob03 {
         int numerSum, denomSum;
         numerSum = numer1*denom2 + numer2*denom1;
         denomSum = denom1*denom2;
-        for(int i=2; i<denomSum; i++){
-            if(numerSum % i == 0 && denomSum % i == 0){
-                numerSum /= i;
-                denomSum /= i;
-                i--; // 한번 더 검사해야 하기 때문 (eg. 4와 8은 2로 두번 나눌 수 있음)
-            }
-        }
+        int gcd = gcd(numerSum, denomSum);
+        numerSum /= gcd;
+        denomSum /= gcd;
         int[] answer = {numerSum, denomSum};
         return answer;
+    }
+
+    public int gcd(int a, int b){
+        if(b==0){
+            return a;
+        } else {
+            return gcd(b, a%b);
+        }
     }
 
     void main(){
