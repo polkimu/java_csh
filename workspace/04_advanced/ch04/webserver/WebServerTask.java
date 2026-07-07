@@ -1,12 +1,12 @@
-package ch04.echo.multi;
+package ch04.webserver;
 
 import java.io.*;
 import java.net.Socket;
 
-public class EchoServerTask implements Runnable{
+public class WebServerTask implements Runnable{
     private final Socket s;
 
-    EchoServerTask(Socket s){
+    WebServerTask(Socket s){
         this.s = s;
     }
 
@@ -18,13 +18,23 @@ public class EchoServerTask implements Runnable{
             // 클라이언트에 메세지를 송신하는 OutputStream 생성
             PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()), true);
 
-            String readData = "";
-            while((readData = in.readLine()) != null){
-                out.println("서버의 응답: " + readData); // 클라이언트에 메세지 반송
-                System.out.println(readData); // 클라이언트의 메세지를 서버에도 출력
+            String line = "";
+            System.out.println("=====요청 헤더 시작=====");
+            while((line=in.readLine()) != null) {
+                if(line.isEmpty()){
+                    break;
+                }
+                System.out.println(line);
             }
+            System.out.println("=====요청 헤더 종료=====");
+            String header = "HTTP/1.1 200 OK\r\n"
+                    + "Content-Type : text/html; charset=UTF-8\r\n";
+
+            out.println(header);
+            out.println("<h1>Hello Web</h1>");
         }catch(IOException e){
             System.err.println("네트워크 예외 발생: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

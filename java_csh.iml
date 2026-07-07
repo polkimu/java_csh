@@ -11,10 +11,12 @@
       <sourceFolder url="file://$MODULE_DIR$/workspace/03_database" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/workspace/04_advanced" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/workspace/Programmers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/workspace/test" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" name="mysql-connector-j-9.7.0" level="project" />
+    <orderEntry type="library" name="junit-jupiter-api-6.1.1" level="project" />
   </component>
 </module>
