@@ -1,6 +1,8 @@
+package level02.day03;
+
 import java.util.Arrays;
 
-class Solution {
+class Prob03 {
     public int solution(int[] array) {
         int answer = 0;
         Arrays.sort(array);
